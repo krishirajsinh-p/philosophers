@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 01:06:03 by kpuwar            #+#    #+#             */
-/*   Updated: 2023/07/09 15:14:41 by kpuwar           ###   ########.fr       */
+/*   Updated: 2023/07/09 15:34:38 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ bool			create_threads(t_data *data);
 void			routine(t_philo *philo);
 
 //free.c
+bool			free_data(t_data *data);
 bool			join_threads(t_data *data);
 
 #endif
