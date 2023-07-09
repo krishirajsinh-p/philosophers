@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/18 01:05:22 by kpuwar            #+#    #+#             */
-/*   Updated: 2023/07/09 15:32:54 by kpuwar           ###   ########.fr       */
+/*   Created: 2023/07/09 12:08:04 by kpuwar            #+#    #+#             */
+/*   Updated: 2023/07/09 13:53:09 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, t_string argv[])
+void	routine(t_philo *philo)
 {
-	t_data	data;
-
-	if (check_args(argc, argv, &data) == false)
-		return (EXIT_FAILURE);
-	if (init_data(&data) == false)
-		return (EXIT_FAILURE);
-	if (create_threads(&data) == false)
-		return (EXIT_FAILURE);
-	if (join_threads(&data) == false)
-		return (EXIT_FAILURE);
-	if (free_data(&data) == false)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	
 }
-//replace wildcard with filenames in makefile

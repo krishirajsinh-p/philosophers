@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 01:06:03 by kpuwar            #+#    #+#             */
-/*   Updated: 2023/06/30 05:20:56 by kpuwar           ###   ########.fr       */
+/*   Updated: 2023/07/09 15:14:41 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,61 @@
 # include <pthread.h>
 # include <stdbool.h>
 
-typedef char *	t_string;
+# define ARGS_ERR 0
+# define MALLOC_ERR 1
+# define MUTEX_INIT_ERR 2
+# define PTHREAD_CREATE_ERR 3
+# define PTHREAD_JOIN_ERR 4
+# define MUTEX_DESTROY_ERR 5
+# define MUTEX_LOCK_ERR 6
+# define MUTEX_UNLOCK_ERR 7
 
-typedef struct s_args
-{
-	int	nb_philo;
-	int	die_time;
-	int	eat_time;
-	int	sleep_time;
-	int	nb_eat;
-}	t_args;
+typedef char *				t_string;
+typedef unsigned long long	t_time;
+typedef struct s_data		t_data;
 
 typedef struct s_philo
 {
-	
+	unsigned int	id;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	unsigned int	nb_meal;
+	t_time			last_meal;
+	t_data			*data;
+	pthread_t		thread;
 }	t_philo;
 
-bool	check_args(int argc, t_string *argv, t_args *args);
+typedef struct s_data
+{
+	unsigned int	nb_philo;
+	unsigned int	die_time;
+	unsigned int	eat_time;
+	unsigned int	sleep_time;
+	unsigned int	nb_eat;
+	bool			all_alive;
+	bool			meals_done;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	print;
+	t_philo			*philo;
+	// pthread_mutex_t	nb_eat_check;	//maybe reductant
+}	t_data;
+
+//utils.c
+void			error_fn(unsigned short errorno);
+t_time			current_time(void);
+void			ft_usleep(t_time sleep_time);
+
+//parser.c
+bool			check_args(int argc, t_string *argv, t_data *data);
+
+//init.c
+bool			init_data(t_data *data);
+bool			create_threads(t_data *data);
+
+//philo.c
+void			routine(t_philo *philo);
+
+//free.c
+bool			join_threads(t_data *data);
 
 #endif
