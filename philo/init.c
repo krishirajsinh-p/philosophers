@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 06:00:11 by kpuwar            #+#    #+#             */
-/*   Updated: 2023/07/09 20:13:49 by kpuwar           ###   ########.fr       */
+/*   Updated: 2023/07/10 02:14:12 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ bool	create_threads(t_data *data)
 		philo[i].last_meal = current_time();
 		i++;
 	}
-	death_checker(data, philo);
+	monitor(data, philo);
 	return (true);
 }

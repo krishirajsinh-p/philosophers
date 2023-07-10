@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 00:43:43 by kpuwar            #+#    #+#             */
-/*   Updated: 2023/07/09 20:29:06 by kpuwar           ###   ########.fr       */
+/*   Updated: 2023/07/10 01:22:25 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ t_time	current_time(void)
 	return (get_time() - start);
 }
 
-void	ft_usleep(t_time sleep_time, t_philo *philo)
+void	ft_usleep(t_time sleep_time)
 {
 	t_time	start;
 
 	start = get_time();
-	while ((get_time() - start) < sleep_time && philo->data->all_alive)
-		usleep(50);
+	while ((get_time() - start) < sleep_time)
+		usleep(10);
 }
 
 void	print(t_philo *philo, t_string str)
 {
 	pthread_mutex_lock(&philo->data->print);
-	if (philo->data->all_alive == true)
+	if (philo->data->all_alive == true && philo->data->meals_done == false)
 		printf("%lli %u %s\n", current_time(), philo->id, str);
 	pthread_mutex_unlock(&philo->data->print);
 }
@@ -55,7 +55,7 @@ void	error_fn(unsigned short errorno)
 	{
 		printf("philo: illegal philo command\n");
 		printf("usage:\t./philo <no_of_philo> <time_to_die> <time_to_eat> \
-	<time_to_sleep> [<no_of_times_each_philo_must_eat>]\n");
+<time_to_sleep> [<no_of_times_each_philo_must_eat>]\n");
 		printf("eg:\t./philo 2 410 200 200 10\n");
 		printf("\nno_of_philo should be between 1 and 200\n");
 		printf("<time_to_*> should be in milliseconds and 60+\n");
@@ -71,8 +71,4 @@ void	error_fn(unsigned short errorno)
 		printf("pthread_join error: failed to join thread(s)\n");
 	else if (errorno == MUTEX_DESTROY_ERR)
 		printf("pthread_mutex_destroy error: failed to destroy mutex(es)\n");
-	// else if (errorno == MUTEX_LOCK_ERR)
-	// 	printf("pthread_mutex_lock error: failed to lock mutex(es)\n");
-	// else if (errorno == MUTEX_UNLOCK_ERR)
-	// 	printf("pthread_mutex_unlock error: failed to unlock mutex(es)\n");
 }

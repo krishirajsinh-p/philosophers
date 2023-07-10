@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 01:06:03 by kpuwar            #+#    #+#             */
-/*   Updated: 2023/07/09 20:29:19 by kpuwar           ###   ########.fr       */
+/*   Updated: 2023/07/10 02:13:55 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # define PTHREAD_CREATE_ERR 3
 # define PTHREAD_JOIN_ERR 4
 # define MUTEX_DESTROY_ERR 5
-// # define MUTEX_LOCK_ERR 6
-// # define MUTEX_UNLOCK_ERR 7
 
 # define FORK "has taken a fork"
 # define EAT "is eating"
@@ -62,14 +60,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	t_philo			*philo;
-	// pthread_mutex_t	nb_eat_check;	//maybe reductant
 }	t_data;
-
-//utils.c
-t_time			current_time(void);
-void			ft_usleep(t_time sleep_time, t_philo *philo);
-void			print(t_philo *philo, t_string str);
-void			error_fn(unsigned short errorno);
 
 //parser.c
 bool			check_args(int argc, t_string *argv, t_data *data);
@@ -80,10 +71,16 @@ bool			create_threads(t_data *data);
 
 //philo.c
 void			routine(t_philo *philo);
-void			death_checker(t_data *d, t_philo *p);
+void			monitor(t_data *d, t_philo *p);
 
 //free.c
 bool			free_data(t_data *data);
 bool			join_threads(t_data *data);
+
+//utils.c
+t_time			current_time(void);
+void			ft_usleep(t_time sleep_time);
+void			print(t_philo *philo, t_string str);
+void			error_fn(unsigned short errorno);
 
 #endif

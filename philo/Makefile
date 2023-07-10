@@ -6,7 +6,7 @@
 #    By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/18 00:57:34 by kpuwar            #+#    #+#              #
-#    Updated: 2023/06/27 04:39:08 by kpuwar           ###   ########.fr        #
+#    Updated: 2023/07/09 23:31:36 by kpuwar           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 CFLAGS = -Wextra -Wall -Werror -pthread
 
 INCLUDES = philo.h
-SRCS = $(wildcard *.c)
+SRCS = main.c parser.c init.c philo.c free.c utils.c
 OBJS = ${SRCS:.c=.o}
 
 RM = rm -rf

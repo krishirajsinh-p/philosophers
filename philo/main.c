@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 01:05:22 by kpuwar            #+#    #+#             */
-/*   Updated: 2023/07/09 15:32:54 by kpuwar           ###   ########.fr       */
+/*   Updated: 2023/07/09 23:34:03 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ int	main(int argc, t_string argv[])
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
-//replace wildcard with filenames in makefile

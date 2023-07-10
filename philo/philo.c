@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 12:08:04 by kpuwar            #+#    #+#             */
-/*   Updated: 2023/07/09 20:15:24 by kpuwar           ###   ########.fr       */
+/*   Updated: 2023/07/10 02:13:59 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void	eat(t_philo *philo)
 	print(philo, FORK);
 	pthread_mutex_lock(philo->right_fork);
 	print(philo, FORK);
-	print(philo, EAT);	
+	print(philo, EAT);
 	philo->last_meal = current_time();
-	ft_usleep(data->eat_time, philo);
+	ft_usleep(data->eat_time);
 	philo->nb_meal++;
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
@@ -31,22 +31,22 @@ static void	eat(t_philo *philo)
 
 void	routine(t_philo *philo)
 {
-	if (philo->id % 2)
-		ft_usleep(philo->data->eat_time, philo);
+	if (philo->id % 2 == 0)
+		ft_usleep(philo->data->eat_time);
 	while (philo->data->all_alive)
 	{
 		eat(philo);
 		if (philo->data->meals_done)
 			break ;
 		print(philo, SLEEP);
-		ft_usleep(philo->data->sleep_time, philo);
+		ft_usleep(philo->data->sleep_time);
 		print(philo, THINK);
 	}
 }
 
-void	death_checker(t_data *d, t_philo *p)
+void	monitor(t_data *d, t_philo *p)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	while (d->meals_done == false)
 	{
@@ -55,16 +55,16 @@ void	death_checker(t_data *d, t_philo *p)
 		{
 			d->all_alive = (current_time() - p[i].last_meal) <= d->die_time;
 			if (d->all_alive == false)
-				print(&p[i], DIED);
-			ft_usleep(100, &p[i]);
+			{
+				printf("%lli %u %s\n", current_time(), p[i].id, DIED);
+				return ;
+			}
+			ft_usleep(10);
 			i++;
 		}
-		if (d->all_alive == false)
-			break ;
 		i = 0;
-		while (d->nb_eat != 0 && i < d->nb_philo && p[i].nb_meal >= d->nb_eat)
+		while (i < d->nb_philo && d->nb_eat > 0 && p[i].nb_meal >= d->nb_eat)
 			i++;
-		if (i == d->nb_philo)
-			d->meals_done = 1;
+		d->meals_done = (i == d->nb_philo);
 	}
 }
